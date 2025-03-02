@@ -157,3 +157,38 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+
+(function(){
+  emailjs.init("Zsfs3ujYBCvR4dVzg"); 
+})();
+
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  let userMessage = document.getElementById("message").value;
+  let userName = document.getElementById("name").value;
+  let userEmail = document.getElementById("email").value;
+  let statusMessage = document.getElementById("statusMessage");
+
+  let templateParams = {
+      from_name: userName,
+      from_email: userEmail,
+      message: userMessage,
+      to_email: "praveenpatidar7692@gmail.com"
+  };
+
+  emailjs.send("service_vxhm15j", "template_wasfu32", templateParams)
+  .then(function(response) {
+      statusMessage.innerHTML = "✅ Message sent successfully!";
+      statusMessage.style.color = "green";
+      document.getElementById("contactForm").reset();
+  }, function(error) {
+      statusMessage.innerHTML = "❌ Failed to send message. Please try again.";
+      statusMessage.style.color = "red";
+      console.error("EmailJS Error:", error);
+  });
+});
+
+
+
